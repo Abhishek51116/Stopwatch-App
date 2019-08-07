@@ -29,13 +29,49 @@ $(function(){
     function startAction(){
     action =setInterval(function(){
      timeCounter++;
+        // if time reaches above 100 minutes then reset counter
+        if(timeCounter == 100*60*100){
+            timeCounter = 0;
+        }
      lapCounter++;
-     updateTime();
+// if time reaches above 100 minutes then reset counter
+        if(lapCounter == 100*60*100){
+            lapCounter = 0;
+        }
+        updateTime();
     },10);    
     }
     //Update timer
     function updateTime(){
      //1 min = 60 *100 centtiseconds
         timeMinutes = Math.floor(timeCounter/6000);
-    }
+        // 1sec = 100centiseconds
+        timeSeconds = Math.floor((timeCounter%6000)/100);
+    //Centiseconds         
+        timeCentiseconds = (timeCounter%6000)%100;
+        //lap variables
+        //1 min = 60 *100 centiseconds
+        lapMinutes = Math.floor(timeCounter/6000);
+        // 1sec = 100centiseconds
+        lapSeconds = Math.floor((timeCounter%6000)/100);
+    //Centiseconds         
+        lapCentiseconds = (timeCounter%6000)%100;
+        //change on page
+        $("#timeMinute").text(format(timeMinutes));
+         $("#timeSecond").text(format(timeSeconds));
+         $("#timeCentiSecond").text(format(timeCentiseconds));
+    //for lap 
+        $("#lapMinute").text(format(lapMinutes));
+         $("#lapSecond").text(format(lapSeconds));
+         $("#lapCentiSecond").text(format(lapCentiseconds));
+        }
+    function format(number){
+        if(number<10){
+            return '0' + number;
+        }else
+            {
+                return number;
+            }
+        }
+    
 });
