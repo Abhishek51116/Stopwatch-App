@@ -18,6 +18,44 @@ $(function(){
         //Start counter
         startAction();
     })
+    // clicking stop button
+    $("#stopButton").click(function(){
+        //show resume and reset button
+        hideshowButtons("#resumeButton","#resetButton");
+        
+        // stop counter
+        clearInterval(action);
+    })
+    //clicking on resume button
+        $("#resumeButton").click(function(){
+        //show stop and lap button
+        hideshowButtons("#stopButton","#lapButton");
+        //start counter  
+            startAction();
+        })
+    //click on reload button
+    $("#resetButton").click(function(){
+        //reload page
+        location.reload();
+        })
+    //click on lap button
+$("#lapButton").click(function(){
+       //if mode is on
+        if(mode){
+            //stop action
+            clearInterval(action);
+            //resetLap and print lap 
+            lapCounter = 0;
+            addLap();
+            //start action
+            startAction();
+
+        }
+        
+        }
+        )
+    
+
  //show two buttons and hide the rest
     function hideshowButtons(x,y){
         $(".control").hide();
@@ -73,5 +111,22 @@ $(function(){
                 return number;
             }
         }
+    //add lap inside lap box
+    function addLap(){
+        lapNumber++;
+        var myLapDetails =
+            '<div class="lap">'+
+            '<div class="laptimetitle">'+
+            'Lap' + lapNumber +
+            '</div>'+
+            '<div class="laptime">'+
+            '<span>'+ format(lapMinutes) + '</span>'+
+            ':<span>'+ format(lapSeconds) + '</span>'+
+            ':<span>'+ format(lapCentiseconds) + '</span>'+
+            '</div>'+
+            '</div>';
+        $(myLapDetails).prependTo("#laps");
+    }
+    
     
 });
